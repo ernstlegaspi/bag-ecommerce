@@ -3,6 +3,27 @@ generator client {
 }
 
 datasource db {
-	provider = "mysql"
+	provider = "mongodb"
 	url      = env("DATABASE_URL")
+}
+
+model Admin {
+	id String @id @default(auto()) @map("_id") @db.ObjectId
+	email String @unique
+	password String
+}
+
+model Bag {
+	id String @id @default(auto()) @map("_id") @db.ObjectId
+	brand String
+	description String
+	productName String
+	price Int
+	tags String
+	upperImage String?
+	middleImage String?
+	lowerImage String?
+	pieces Int @default(0)
+	createdAt DateTime @default(now())
+	updatedAt DateTime @updatedAt
 }
