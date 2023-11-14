@@ -5,6 +5,7 @@ import type { Metadata } from 'next'
 import './globals.css'
 
 import SessionProvider from '@/components/providers/SessionProvider'
+import QueryProvider from '@/components/providers/QueryProvider'
 
 const inter = Roboto({
 	weight: '400',
@@ -22,7 +23,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 			<html lang="en">
 				<body className={`${inter.className} h-screen`}>
 					<Toaster />
-					{children}
+					<QueryProvider>
+						{children}
+					</QueryProvider>
 				</body>
 			</html>
 		</SessionProvider>

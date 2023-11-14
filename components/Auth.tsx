@@ -11,7 +11,6 @@ import Button from "./Button"
 import Input from "./Input"
 
 import { authSchema } from "@/lib/schema"
-import axios from "axios"
 
 /*
 e£ct*,5I46P825VNuqR%!>&
@@ -35,8 +34,6 @@ const Auth = () => {
 
 			const res = await signIn('credentials', { ...data, redirect: false })
 
-			console.log(res)
-			
 			if(!res?.ok) toast.error('Invalid email or password.')
 
 			router.push('/admin')

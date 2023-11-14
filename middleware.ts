@@ -1,7 +1,9 @@
 import { NextRequest, NextResponse } from "next/server"
 
+import { clientError } from "./lib/statusCodes"
+
 export const config = {
-	matcher: ['/', '/admin']
+	matcher: ['/', '/admin', '/api/bag']
 }
 
 export function middleware(request: NextRequest) {
@@ -12,7 +14,12 @@ export function middleware(request: NextRequest) {
 		return NextResponse.redirect(new URL('/admin', request.url))
 	}
 
-	if(!isAuthenticated && pathname !== '/') {
-		return NextResponse.redirect(new URL('/', request.url))
+	if(!isAuthenticated) {
+		switch(pathname) {
+			case '/admin':
+				return NextResponse.redirect(new URL('/', request.url))
+			case '/api/bag':
+				return clientError({ code: 401 })
+		}
 	}
 }

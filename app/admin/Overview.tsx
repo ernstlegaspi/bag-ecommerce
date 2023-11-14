@@ -4,7 +4,7 @@ import useSidebarCategory from "@/hooks/useSidebarCategory"
 
 import Customers from "./Customers"
 import DashboardSummary from "./DashboardSummary"
-import Products from "./Products"
+import Products from "./(products)/Products"
 import Transactions from "./Transactions"
 
 export default function Overview() {

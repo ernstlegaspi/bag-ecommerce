@@ -1,6 +1,7 @@
 import { AiOutlineLineChart } from 'react-icons/ai'
 import { DonutChart } from "@tremor/react";
 import { signOut } from 'next-auth/react';
+import { useRouter } from 'next/navigation';
 
 const DashboardSummary = () => {
 	const cities = [
@@ -16,11 +17,14 @@ const DashboardSummary = () => {
 	
 	const valueFormatter = (number: number) => `${new Intl.NumberFormat("us").format(number).toString()}`
 
+	const router = useRouter()
+	
 	return (
 		<div className="mr-3">
-			<div onClick={() => {
-				signOut()
-			}}>Click me</div>
+			<button onClick={async () => {
+				await signOut({ redirect: false })
+				router.push('/')
+			}}>Logout</button>
 			<div className="flex mt-3 mb-6 h-[260px]">
 				<div>
 					<div className="flex h-[48%] mb-3">
