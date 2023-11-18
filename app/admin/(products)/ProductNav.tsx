@@ -13,7 +13,7 @@ const AddBagModal = lazy(() => import('@/components/modals/AddBagModal'))
 const ProductNav = () => {
 	const [_, startTransition] = useTransition()
 	const { isOpen, open } = UseAddBagModal()
-	const { setEditMode, setHasEdited } = UseEditProductCard()
+	const { setEditMode } = UseEditProductCard()
 
 	return (
 		<>
@@ -28,7 +28,6 @@ const ProductNav = () => {
 				<Button onClick={() => startTransition(() => {
 					open()
 					setEditMode(false)
-					setHasEdited(false)
 				})} text="Add a new bag" width="w-max" />
 			</div>
 		</>

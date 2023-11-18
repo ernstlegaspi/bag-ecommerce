@@ -9,14 +9,14 @@ import Button from '@/components/Button'
 import Input from "../Input"
 
 import UseBagToEdit from "@/hooks/products/useBagToEdit"
-import UseEditProductCard from "@/hooks/products/useEditProductCard"
 
 import { addBagSchema } from "@/lib/schema"
 import { BagType } from "@/constants"
+import { useRouter } from "next/navigation"
 
 const BagForm = ({ isEditMode }: { isEditMode: boolean }) => {
-	const { setHasEdited } = UseEditProductCard()
 	const { bag, setBag } = UseBagToEdit()
+	const router = useRouter()
 
 	const initialState = {
 		brand: isEditMode ? bag.brand : '',
@@ -67,14 +67,14 @@ const BagForm = ({ isEditMode }: { isEditMode: boolean }) => {
 		onError: () => {
 			toast.error('Can not update bag. Try again.')
 		},
-		onSettled: (newBag: any) => {
-			queryClient.invalidateQueries({ queryKey: ['bags', newBag.id], exact: true })
+		onSettled: () => {
+			queryClient.invalidateQueries({ queryKey: ['bags'], exact: true })
 		},
 		onSuccess: async () => {
 			clear()
 			toast.success('Bag has been updated')
 			setBag(data)
-			setHasEdited(true)
+			router.refresh()
 		}
 	})
 
