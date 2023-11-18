@@ -4,17 +4,23 @@ import Image from "next/image"
 
 import { AiOutlineClose } from "react-icons/ai"
 
-import useAddBagModal from "@/hooks/useAddBagModal"
+import useAddBagModal from "@/hooks/products/useAddBagModal"
+import UseEditProductCard from "@/hooks/products/useEditProductCard"
 
 import BagForm from "./BagForm"
 import Icon from "../Icon"
 
 const AddBagModal = () => {
 	const { close } = useAddBagModal()
+	const { isEditMode, setEditMode, setHasEdited } = UseEditProductCard()
 
 	const Header = () => <div className="w-full full-flex">
-		<p className="black">Add Bag</p>
-		<Icon icon={AiOutlineClose} onClick={close} />
+		<p className="black">{isEditMode ? "Edit" : "Add"} Bag</p>
+		<Icon icon={AiOutlineClose} onClick={() => {
+			close()
+			setEditMode(false)
+			setHasEdited(false)
+		}} />
 	</div>
 
 	return (
@@ -34,7 +40,7 @@ const AddBagModal = () => {
 						</div>
 					</div>
 					<Image alt="Test Image" src='/img/bag1.png' width={450} height={150} />
-					<BagForm />
+					<BagForm isEditMode={isEditMode} />
 				</div>
 			</div>
 		</div>

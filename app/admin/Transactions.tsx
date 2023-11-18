@@ -2,7 +2,7 @@ import Image from "next/image"
 
 import CategoryColumn from "@/components/CategoryColumn"
 
-import { TransactionCategories } from '@/constants/index'
+import { TransactionCategories } from '@/constants/'
 
 export default function Transactions() {
 	return (

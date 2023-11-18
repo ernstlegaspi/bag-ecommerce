@@ -21,12 +21,12 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 	return (
 		<SessionProvider>
 			<html lang="en">
-				<body className={`${inter.className} h-screen`}>
-					<Toaster />
-					<QueryProvider>
+				<QueryProvider>
+					<body className={`${inter.className} h-screen`}>
+						<Toaster />
 						{children}
-					</QueryProvider>
-				</body>
+					</body>
+				</QueryProvider>
 			</html>
 		</SessionProvider>
 	)

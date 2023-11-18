@@ -5,13 +5,15 @@ import { lazy, Suspense, useTransition } from "react"
 import { IoMdArrowDropdown } from "react-icons/io"
 
 import Button from "@/components/Button"
-import UseAddBagModal from "@/hooks/useAddBagModal"
+import UseAddBagModal from "@/hooks/products/useAddBagModal"
+import UseEditProductCard from "@/hooks/products/useEditProductCard"
 
 const AddBagModal = lazy(() => import('@/components/modals/AddBagModal'))
 
 const ProductNav = () => {
 	const [_, startTransition] = useTransition()
 	const { isOpen, open } = UseAddBagModal()
+	const { setEditMode, setHasEdited } = UseEditProductCard()
 
 	return (
 		<>
@@ -23,7 +25,11 @@ const ProductNav = () => {
 					<p className="mr-3">All brand</p>
 					<IoMdArrowDropdown />
 				</div>
-				<Button onClick={() => startTransition(() => open())} text="Add a new bag" width="w-max" />
+				<Button onClick={() => startTransition(() => {
+					open()
+					setEditMode(false)
+					setHasEdited(false)
+				})} text="Add a new bag" width="w-max" />
 			</div>
 		</>
 	)

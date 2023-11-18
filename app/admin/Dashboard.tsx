@@ -1,4 +1,4 @@
-import { dehydrate, HydrationBoundary } from '@tanstack/react-query'
+import { dehydrate, HydrationBoundary, QueryClient } from '@tanstack/react-query'
 
 import Sidebar from './Sidebar'
 import Navbar from './Navbar'
@@ -11,7 +11,7 @@ export default async function Dashboard() {
 	const queryClient = getQueryClient()
 
 	await queryClient.prefetchQuery({
-		queryKey: ["bags"],
+		queryKey: ['bags'],
 		queryFn: getAllBags
 	})
 

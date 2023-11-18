@@ -1,5 +1,5 @@
 import { AiOutlineLineChart } from 'react-icons/ai'
-import { DonutChart } from "@tremor/react";
+// import { DonutChart } from "@tremor/react";
 import { signOut } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 
@@ -74,14 +74,14 @@ const DashboardSummary = () => {
 				</div>
 				<div className="flex w-full">
 					<div className="card p-4 mr-3 w-[40%] h-full">
-						<DonutChart
+						{/* <DonutChart
 							className="w-full"
 							data={cities}
 							category="sales"
 							index="name"
 							valueFormatter={valueFormatter}
 							colors={["slate", "sky"]}
-						/>
+						/> */}
 						<div className="flex-v-center justify-center flex-col">
 							<div className="flex-v-center my-2">
 								<div className="mr-1 bg-slate-500 rounded-full w-[13px] h-[13px]"></div>
