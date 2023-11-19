@@ -1,11 +1,21 @@
 import prisma from '@/lib/db'
 
 import { catchError } from '@/lib/apiHandler'
-import { success } from '@/lib/statusCodes'
+import { clientError, success } from '@/lib/statusCodes'
 
 export async function POST(request: Request) {
 	return catchError({ callback: async () => {
 		const data = await request.json()
+
+		const { productName } = data
+
+		const existingBag = await prisma.bag.findFirst({
+			where: {
+				productName
+			}
+		})
+
+		if(existingBag) return clientError({ code: 409 })
 
 		await prisma.bag.create({
 			data: { ...data }

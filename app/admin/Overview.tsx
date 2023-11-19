@@ -3,7 +3,7 @@
 import useSidebarCategory from "@/hooks/useSidebarCategory"
 
 import Customers from "./Customers"
-import DashboardSummary from "./DashboardSummary"
+import DashboardSummary from "./(dashboard-summary)/DashboardSummary"
 import Products from "./(products)/Products"
 import Transactions from "./Transactions"
 

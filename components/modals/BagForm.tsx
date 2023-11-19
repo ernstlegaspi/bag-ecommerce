@@ -1,6 +1,6 @@
 import { ChangeEvent, FormEvent, useState } from "react"
 
-import axios from 'axios'
+import axios, { AxiosError } from 'axios'
 import toast from 'react-hot-toast'
 
 import { useMutation, useQueryClient } from '@tanstack/react-query'
@@ -44,7 +44,14 @@ const BagForm = ({ isEditMode }: { isEditMode: boolean }) => {
 		mutationFn: async (newBag: any) => {
 			await axios.post('/api/bag/', { ...newBag })
 		},
-		onError: () => {
+		onError: ({ response }: AxiosError, variables, context) => {
+			if(response?.statusText === 'Conflict') {
+				toast.error('Bag is already existing. Try again.')
+				queryClient.setQueryData(['bags'], context)
+
+				return
+			}
+			
 			toast.error('Can not add new bag. Try again.')
 		},
 		onMutate: async newBag => {
@@ -52,6 +59,8 @@ const BagForm = ({ isEditMode }: { isEditMode: boolean }) => {
 			queryClient.setQueryData(['bags'], [...bags, newBag])
 
 			queryClient.invalidateQueries({ queryKey: ['bags'], exact: true })
+
+			return bags
 		},
 		onSuccess: async () => {
 			clear()
@@ -104,10 +113,12 @@ const BagForm = ({ isEditMode }: { isEditMode: boolean }) => {
 			<Input disabled={isLoading} name="productName" onChange={e => handleChange(e)} value={data.productName} />
 			<p className="mt-3">Description</p>
 			<textarea disabled={isLoading} className={`${isLoading ? 'bg-gray-100 text-gray-300' : 'main-bg'} resize-none outline-none w-full p-1 px-2 mt-1 h-[100px] scroll`} name="description" onChange={e => handleChange(e)} value={data.description}></textarea>
+			<p>Brand</p>
+			<Input disabled={isLoading} name="brand" onChange={e => handleChange(e)} value={data.brand} />
 			<div className="flex mt-3 w-full">
 				<div className="flex flex-col flex-grow mr-3">
-					<p>Brand</p>
-					<Input disabled={isLoading} name="brand" onChange={e => handleChange(e)} value={data.brand} />
+					<p>Pieces</p>
+					<Input disabled={isLoading} name="brand" onChange={e => setData({ ...data, pieces: Number(e.target.value) })} value={data.pieces} />
 				</div>
 				<div className="flex flex-col flex-grow">
 					<p>Price</p>

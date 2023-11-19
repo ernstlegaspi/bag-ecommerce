@@ -39,6 +39,9 @@ const DeleteBagModal = ({ bagDetails }: { bagDetails: { bagId: string | undefine
 			toggle(false)
 
 			return { prevBags }
+		},
+		onSuccess: () => {
+			queryClient.invalidateQueries({ queryKey: ['bags'], exact: true })
 		}
 	})
 	
